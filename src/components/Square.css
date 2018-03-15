@@ -1,0 +1,6 @@
+.white-square {
+    border: solid black 0.05rem;
+    background-color: white;
+    height: 5rem;
+    width: 5rem;
+}
