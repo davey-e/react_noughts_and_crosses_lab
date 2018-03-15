@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import Square from '../components/Square.js';
 class Board extends Component{
 
     constructor(props){
@@ -26,8 +26,12 @@ class Board extends Component{
 
     render(){
 
+        const squareElements = this.state.squares.map((square, index) => {
+            return <Square key={index} colour={square.colour} />
+        })
+
         return(
-            null
+            squareElements
         )
     }
 
