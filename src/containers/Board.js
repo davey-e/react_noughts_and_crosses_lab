@@ -7,6 +7,8 @@ class Board extends Component{
         this.state= {
             rows: []
         }
+
+        this.handleSquareClick = this.handleSquareClick.bind(this);
     }
 
     componentDidMount(){
@@ -16,22 +18,35 @@ class Board extends Component{
     populateRows(){
         const newRows = [];
         for(let i=0; i<3; i++){
-            const row = [];
-            const square = {
-                colour: "white-square"
-            }
-            row.push(square);
-            row.push(square);
-            row.push(square);
+            const row = this.createSquares();
             newRows.push(row);
         }
         this.setState({rows: newRows});
     }
 
+    createSquares(){
+        const row = [];
+        for(let i=0; i < 3; i++){
+            const square = {
+                colour: "white-square"
+            }
+            row.push(square)
+        }
+        return row;
+    }
+
+    handleSquareClick(rowIndex, squareIndex){
+        const allRows = this.state.rows;
+        const requiredRow = allRows[rowIndex];
+        const requiredSquare = requiredRow[squareIndex];
+        requiredSquare.colour = "blue-square";
+        this.setState({rows: allRows});
+    }
+
     render(){
 
         const rowElements = this.state.rows.map((rowSquares, index) => {
-            return <Row key={index} squares={rowSquares} rowNumber={index} />
+            return <Row key={index} squares={rowSquares} rowNumber={index} handleSquareClick={this.handleSquareClick} />
         })
 
         return(

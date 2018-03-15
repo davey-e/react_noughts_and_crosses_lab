@@ -4,3 +4,10 @@
     height: 5rem;
     width: 5rem;
 }
+
+.blue-square {
+    border: solid black 0.05rem;
+    background-color: blue;
+    height: 5rem;
+    width: 5rem;
+}

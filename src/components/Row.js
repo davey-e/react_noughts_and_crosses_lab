@@ -4,12 +4,17 @@ import './Row.css';
 
 const Row = (props) => {
 
+    const onSquareClick = (squareInfo) => {
+        props.handleSquareClick(props.rowNumber, squareInfo);
+    }
+
     const squareElements = props.squares.map((square, index) => {
-        return <Square key={index} colour={square.colour} />
+        return <Square key={index} squareNumber={index} 
+                colour={square.colour} handleClick={onSquareClick}/>
     })
 
     return(
-        <div className="row" id={`row-${props.rowNumber}`}>
+        <div className="row">
             {squareElements}
         </div>
     )
