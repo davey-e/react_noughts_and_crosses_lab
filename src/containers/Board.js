@@ -6,7 +6,8 @@ class Board extends Component{
         super(props);
         this.state= {
             rows: [],
-            activeColour: "blue-square"
+            activeColour: "blue-square",
+            gameWon: false
         }
 
         this.handleSquareClick = this.handleSquareClick.bind(this);
@@ -46,25 +47,34 @@ class Board extends Component{
         const requiredSquare = requiredRow[squareIndex];
 
         if(requiredSquare.colour !== "white-square") return;
+        if(this.state.gameWon) return;
         
         requiredSquare.colour = this.state.activeColour;
         const newActiveColour = this.swapActiveColour();
-        this.setState({rows: allRows, activeColour: newActiveColour});
-        console.log("Game Result", this.checkIfWinnerExists());
+        const gameWon = this.checkIfWinnerExists(allRows);
+
+        console.log("Game Result", gameWon);
+        if(gameWon){
+            this.setState({rows: allRows, gameWon: gameWon});
+        } else {
+            this.setState({rows: allRows, activeColour: newActiveColour, gameWon: gameWon});
+        }
+        
+        
     }
 
-    checkIfWinnerExists(){
+    checkIfWinnerExists(allRows){
 
-        const rowOne = this.state.rows[0];
-        const rowTwo = this.state.rows[1];
-        const rowThree = this.state.rows[2];
+        const rowOne = allRows[0];
+        const rowTwo = allRows[1];
+        const rowThree = allRows[2];
         
-        const columnOne     = [this.state.rows[0][0], this.state.rows[1][0], this.state.rows[2][0]];
-        const columnTwo     = [this.state.rows[0][1], this.state.rows[1][1], this.state.rows[2][1]];
-        const columnThree   = [this.state.rows[0][2], this.state.rows[1][2], this.state.rows[2][2]];
+        const columnOne     = [allRows[0][0], allRows[1][0], allRows[2][0]];
+        const columnTwo     = [allRows[0][1], allRows[1][1], allRows[2][1]];
+        const columnThree   = [allRows[0][2], allRows[1][2], allRows[2][2]];
 
-        const topLeftDiagonal       = [this.state.rows[0][0], this.state.rows[1][1], this.state.rows[2][2]];
-        const bottomLeftDiagonal    = [this.state.rows[2][0], this.state.rows[1][1], this.state.rows[0][2]];
+        const topLeftDiagonal       = [allRows[0][0], allRows[1][1], allRows[2][2]];
+        const bottomLeftDiagonal    = [allRows[2][0], allRows[1][1], allRows[0][2]];
 
         const squaresToCheck = [rowOne, rowTwo, rowThree, columnOne, 
                                 columnTwo, columnThree, topLeftDiagonal, bottomLeftDiagonal];
