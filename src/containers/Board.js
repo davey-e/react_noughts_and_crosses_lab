@@ -7,15 +7,21 @@ class Board extends Component{
         super(props);
         this.state= {
             rows: [],
-            activeColour: "blue",
-            gameWon: false
+            activeColour: null,
+            gameWon: null
         }
 
-        this.handleSquareClick = this.handleSquareClick.bind(this);
+        this.handleSquareClick  = this.handleSquareClick.bind(this);
+        this.handleGameReset    = this.handleGameReset.bind(this);
     }
 
     componentDidMount(){
-        this.populateRows();
+        this.setupBoard();
+    }
+
+    setupBoard(){
+        const rows = this.populateRows();
+        this.setState({rows: rows, activeColour: "blue", gameWon: false});
     }
 
     populateRows(){
@@ -24,7 +30,7 @@ class Board extends Component{
             const row = this.createSquares();
             newRows.push(row);
         }
-        this.setState({rows: newRows});
+        return newRows;
     }
 
     createSquares(){
@@ -103,6 +109,10 @@ class Board extends Component{
         }
     }
 
+    handleGameReset(){
+        this.setupBoard();
+    }
+
     render(){
 
         const rowElements = this.state.rows.map((rowSquares, index) => {
@@ -111,7 +121,7 @@ class Board extends Component{
 
         return(
             <div className="board">
-                <BoardHeader activeColour={this.state.activeColour} gameWon={this.state.gameWon}/>
+                <BoardHeader activeColour={this.state.activeColour} gameWon={this.state.gameWon} handleReset={this.handleGameReset}/>
                 {rowElements}
             </div>
         )
