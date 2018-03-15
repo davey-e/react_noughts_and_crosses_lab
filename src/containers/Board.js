@@ -44,6 +44,9 @@ class Board extends Component{
         const allRows = this.state.rows;
         const requiredRow = allRows[rowIndex];
         const requiredSquare = requiredRow[squareIndex];
+
+        if(requiredSquare.colour !== "white-square") return;
+        
         requiredSquare.colour = this.state.activeColour;
         const newActiveColour = this.swapActiveColour();
         this.setState({rows: allRows, activeColour: newActiveColour});
