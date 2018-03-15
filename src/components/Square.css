@@ -11,3 +11,10 @@
     height: 5rem;
     width: 5rem;
 }
+
+.red-square {
+    border: solid black 0.05rem;
+    background-color: red;
+    height: 5rem;
+    width: 5rem;
+}

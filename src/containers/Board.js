@@ -5,7 +5,8 @@ class Board extends Component{
     constructor(props){
         super(props);
         this.state= {
-            rows: []
+            rows: [],
+            activeColour: "blue-square"
         }
 
         this.handleSquareClick = this.handleSquareClick.bind(this);
@@ -35,12 +36,17 @@ class Board extends Component{
         return row;
     }
 
+    swapActiveColour(){
+        return this.state.activeColour === "blue-square" ? "red-square" : "blue-square";
+    }
+
     handleSquareClick(rowIndex, squareIndex){
         const allRows = this.state.rows;
         const requiredRow = allRows[rowIndex];
         const requiredSquare = requiredRow[squareIndex];
-        requiredSquare.colour = "blue-square";
-        this.setState({rows: allRows});
+        requiredSquare.colour = this.state.activeColour;
+        const newActiveColour = this.swapActiveColour();
+        this.setState({rows: allRows, activeColour: newActiveColour});
     }
 
     render(){
