@@ -1,37 +1,43 @@
 import React, {Component} from 'react';
-import Square from '../components/Square.js';
+import Row from '../components/Row.js';
 class Board extends Component{
 
     constructor(props){
         super(props);
         this.state= {
-            squares: []
+            rows: []
         }
     }
 
     componentDidMount(){
-        this.populateSquares();
+        this.populateRows();
     }
 
-    populateSquares(){
-        const newSquares = [];
-        for(let i=0; i<9; i++){
+    populateRows(){
+        const newRows = [];
+        for(let i=0; i<3; i++){
+            const row = [];
             const square = {
                 colour: "white-square"
             }
-            newSquares.push(square);
+            row.push(square);
+            row.push(square);
+            row.push(square);
+            newRows.push(row);
         }
-        this.setState({squares: newSquares});
+        this.setState({rows: newRows});
     }
 
     render(){
 
-        const squareElements = this.state.squares.map((square, index) => {
-            return <Square key={index} colour={square.colour} />
+        const rowElements = this.state.rows.map((rowSquares, index) => {
+            return <Row key={index} squares={rowSquares} rowNumber={index} />
         })
 
         return(
-            squareElements
+            <div className="board">
+                {rowElements}
+            </div>
         )
     }
 
