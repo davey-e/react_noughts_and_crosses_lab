@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import Row from '../components/Row.js';
+import BoardHeader from '../components/BoardHeader.js';
 class Board extends Component{
 
     constructor(props){
         super(props);
         this.state= {
             rows: [],
-            activeColour: "blue-square",
+            activeColour: "blue",
             gameWon: false
         }
 
@@ -30,7 +31,7 @@ class Board extends Component{
         const row = [];
         for(let i=0; i < 3; i++){
             const square = {
-                colour: "white-square"
+                colour: "white"
             }
             row.push(square)
         }
@@ -38,7 +39,7 @@ class Board extends Component{
     }
 
     swapActiveColour(){
-        return this.state.activeColour === "blue-square" ? "red-square" : "blue-square";
+        return this.state.activeColour === "blue" ? "red" : "blue";
     }
 
     handleSquareClick(rowIndex, squareIndex){
@@ -46,7 +47,7 @@ class Board extends Component{
         const requiredRow = allRows[rowIndex];
         const requiredSquare = requiredRow[squareIndex];
 
-        if(requiredSquare.colour !== "white-square") return;
+        if(requiredSquare.colour !== "white") return;
         if(this.state.gameWon) return;
         
         requiredSquare.colour = this.state.activeColour;
@@ -59,8 +60,6 @@ class Board extends Component{
         } else {
             this.setState({rows: allRows, activeColour: newActiveColour, gameWon: gameWon});
         }
-        
-        
     }
 
     checkIfWinnerExists(allRows){
@@ -95,7 +94,7 @@ class Board extends Component{
         const squareTwo = squares[1];
         const squareThree = squares[2];
 
-        if (squareOne.colour === "white-square" || squareTwo.colour === "white-square" || squareThree.colour === "white-square") return false;
+        if (squareOne.colour === "white" || squareTwo.colour === "white" || squareThree.colour === "white") return false;
 
         if(squareOne.colour === squareTwo.colour && squareTwo.colour === squareThree.colour){
             return true;
@@ -112,6 +111,7 @@ class Board extends Component{
 
         return(
             <div className="board">
+                <BoardHeader activeColour={this.state.activeColour} gameWon={this.state.gameWon}/>
                 {rowElements}
             </div>
         )

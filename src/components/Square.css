@@ -1,18 +1,18 @@
-.white-square {
+.white {
     border: solid black 0.05rem;
     background-color: white;
     height: 5rem;
     width: 5rem;
 }
 
-.blue-square {
+.blue {
     border: solid black 0.05rem;
     background-color: blue;
     height: 5rem;
     width: 5rem;
 }
 
-.red-square {
+.red {
     border: solid black 0.05rem;
     background-color: red;
     height: 5rem;
